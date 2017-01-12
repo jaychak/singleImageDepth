@@ -1,0 +1,39 @@
+# Normal execution
+Universe         = vanilla
+# Just one cpu
+RequestCpus      = 4
+# 4GB RAM needed, ask at least 2GB for matlab.
+RequestMemory    = 16G
+# Four days
++RequestWalltime = 345600
+# One GPU
+Request_GPUs = 1
+
+NiceUser = true
+
+# CUDACapability should be 2 or higher
+Requirements = ( CUDACapability >= 2 ) && ( machineowner == "Visics" ) && ( CUDAGlobalMemoryMb > 1024 )
+
+# Start directory
+Initialdir       = /users/start2013/r0300219/Documents/Thesis/depth_mapping_with_CNN
+
+# Executable, you can select a specific version of matlab here.
+# Executable       = /software/bin/matlab
+Executable       = /users/start2013/r0300219/Documents/Thesis/depth_mapping_with_CNN/run_syncKinectImages.sh
+# No java, no display, and as many compute threads, as CPUs requested
+# Arguments        = -nojvm -nodisplay
+Folder_nmb = 19  
+Arguments = /software/matlab/2015b $(Folder_nmb) 1 
+
+# Input
+# Input		 = syncKinectImages.m
+# Output of condors handling of the jobs
+Log          = condor_syncKinect$(Folder_nmb).log
+# Standard output of the job
+Output       = condor_syncKinect$(Folder_nmb).out
+# Standard error of the job
+Error        = condor_syncKinect$(Folder_nmb).err
+
+# Just 1 instance
+Queue
+

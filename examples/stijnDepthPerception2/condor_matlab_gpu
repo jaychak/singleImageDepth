@@ -1,0 +1,33 @@
+# Normal execution
+Universe         = vanilla
+# Just one cpu
+RequestCpus      = 2
+# 4GB RAM needed, ask at least 2GB for matlab.
+RequestMemory    = 6G
+# One quarter of clock time
+# +RequestWalltime = 900
+# One GPU
+Request_GPUs = 1
+
+NiceUser = true
+
+# CUDACapability should be 2 or higher
+Requirements = ( CUDACapability >= 2 ) && ( machineowner == "Visics" ) && ( CUDAGlobalMemoryMb > 1024 )
+
+# Start directory
+Initialdir       = /users/start2013/r0300219/Documents/Thesis/depth_mapping_with_CNN
+# Executable, you can select a specific version of matlab here.
+Executable       = /software/bin/matlab
+# No java, no display, and as many compute threads, as CPUs requested
+Arguments        = "-nojvm -nodisplay -r 'run_coarse_scale_network_gpu;exit()'"
+
+# Output of condors handling of the jobs
+Log          = condor_matlab_gpu.log
+# Standard output of the job
+Output       = condor_matlab_gpu.out
+# Standard error of the job
+Error        = condor_matlab_gpu.err
+
+# Just 1 instance
+Queue
+
